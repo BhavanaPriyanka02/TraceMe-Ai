@@ -10,7 +10,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from jose import jwt
 
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.drop_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 pwd_context = CryptContext(schemes=["sha256_crypt"], deprecated="auto")
 
