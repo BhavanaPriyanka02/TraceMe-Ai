@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends, UploadFile, File, Form
 from sqlalchemy.orm import Session
-from app.database import SessionLocal, engine
+from app.database import SessionLocal, engine,Base
 from app import models
 from app.embedding import get_similarity
 from app.explanation import generate_explanation
@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from jose import jwt
 
-#models.Base.metadata.create_all(bind=engine)
+models.Base.metadata.create_all(bind=engine)
 
 pwd_context = CryptContext(schemes=["sha256_crypt"], deprecated="auto")
 
