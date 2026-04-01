@@ -12,13 +12,13 @@ function Report() {
 
   const handleSubmit = async () => {
     try {
-      const userId = localStorage.getItem("user_id");
+      const userId = Number(localStorage.getItem("user_id"));
 
       const formData = new FormData();
       formData.append("name", name);
       formData.append("description", description);
       formData.append("location", location);
-      formData.append("type", type.toUpperCase());
+      formData.append("type", type);
       formData.append("user_id", userId);
       formData.append("phone", phone);
 
