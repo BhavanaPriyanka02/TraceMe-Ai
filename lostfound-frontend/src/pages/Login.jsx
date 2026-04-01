@@ -19,6 +19,7 @@ function Login() {
         email,
         password,
       });
+      console.log(res.data);
 
       localStorage.setItem("user_id", res.data.user_id);
       localStorage.setItem("token", res.data.access_token);
