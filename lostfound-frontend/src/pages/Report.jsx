@@ -11,35 +11,41 @@ function Report() {
   const [image, setImage] = useState(null);
 
   const handleSubmit = async () => {
-    try {
-      const userId = Number(localStorage.getItem("user_id"));
+  try {
+    const userId = Number(localStorage.getItem("user_id"));
 
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("description", description);
-      formData.append("location", location);
-      formData.append("type", type);
-      formData.append("user_id", userId);
-      formData.append("phone", phone);
-
-      if (image) {
-        formData.append("image", image);
-      }
-
-      await API.post("/items", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      alert("Item reported successfully!");
-
-      // 🔥 Go back to dashboard
-      window.location.href = "/dashboard";
-
-    } catch (err) {
-      console.log(err);
-      alert("Error submitting item");
+    if (!type) {
+      alert("Please select Lost or Found");
+      return;
     }
-  };
+
+    if (!userId) {
+      alert("User not logged in");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("location", location);
+    formData.append("type", type); // lowercase
+    formData.append("user_id", userId);
+    formData.append("phone", phone);
+
+    if (image) {
+      formData.append("image", image);
+    }
+
+    await API.post("/items", formData); // ✅ no headers
+
+    alert("Item reported successfully!");
+    window.location.href = "/dashboard";
+
+  } catch (err) {
+    console.log(err.response?.data); // 🔥 IMPORTANT
+    alert("Error submitting item");
+  }
+};
 
   return (
   <div className="page-container">
