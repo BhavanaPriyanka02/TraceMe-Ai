@@ -137,7 +137,7 @@ function Dashboard() {
 
                       {item.image_url && (
                         <img
-                          src={`http://localhost:8000/${item.image_url}`}
+                          src={item.image}
                           alt="item"
                           className="item-image"
                         />
@@ -163,7 +163,7 @@ function Dashboard() {
                       {/* 🔥 IMAGE */}
                       {item.image && (
                         <img
-                          src={`http://localhost:8000/${item.image}`}
+                          src={item.image}
                           alt="item"
                           className="item-image"
                         />
