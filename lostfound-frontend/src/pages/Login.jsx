@@ -14,49 +14,70 @@ function Login() {
 
   // LOGIN
   const handleLogin = async () => {
-    try {
-      const res = await API.post("/login", {
-        email,
-        password,
-      });
-      console.log(res.data);
+  console.log("LOGIN CLICKED");
 
-      localStorage.setItem("user_id", res.data.user_id);
-      localStorage.setItem("token", res.data.access_token);
-      localStorage.setItem("username", res.data.username); // ✅ FIXED
+  if (!email || !password) {
+    alert("Please enter email & password");
+    return;
+  }
 
-      navigate("/dashboard");
-    } catch (err) {
-      console.log(err.response);
-      alert("Login failed");
-    }
-  };
+  try {
+    const res = await API.post("/login", {
+      email,
+      password,
+    });
 
-  // REGISTER
+    console.log("LOGIN RESPONSE:", res.data);
+
+    localStorage.setItem("user_id", res.data.user_id);
+    localStorage.setItem("token", res.data.access_token);
+    localStorage.setItem("username", res.data.username);
+
+    navigate("/dashboard");
+  } catch (err) {
+    console.log(err);
+    alert("Login failed");
+  }
+};
+
   const handleRegister = async () => {
-    try {
-      await API.post("/register", {
-        username,
-        email,
-        password,
-      });
+  console.log("REGISTER CLICKED");
 
-      const res = await API.post("/login", {
-        email,
-        password,
-      });
+  if (!username || !email || !password) {
+    alert("Fill all fields");
+    return;
+  }
 
-      localStorage.setItem("user_id", res.data.user_id);
-      localStorage.setItem("token", res.data.access_token);
-      localStorage.setItem("username", res.data.username); // ✅ FIXED
+  try {
+    alert("Registering... please wait ⏳");
 
-      navigate("/dashboard");
-    } catch (err) {
-      console.log(err.response);
-      alert("Registration failed");
-    }
-  };
+    await API.post("/register", {
+      username,
+      email,
+      password,
+    });
 
+    console.log("REGISTER SUCCESS");
+
+    const res = await API.post("/login", {
+      email,
+      password,
+    });
+
+    console.log("LOGIN AFTER REGISTER:", res.data);
+
+    localStorage.setItem("user_id", res.data.user_id);
+    localStorage.setItem("token", res.data.access_token);
+    localStorage.setItem("username", res.data.username);
+
+    alert("Registered Successfully");
+
+    navigate("/dashboard");
+  } catch (err) {
+    console.log(err);
+    alert("Registration failed");
+  }
+};
   return (
     <div className="center-container">
 
