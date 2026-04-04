@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from jose import jwt
 
-Base.metadata.drop_all(bind=engine)
+
 Base.metadata.create_all(bind=engine)
 
 pwd_context = CryptContext(schemes=["sha256_crypt"], deprecated="auto")
@@ -19,8 +19,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173",
-                   "https://trace-me-ai.vercel.app"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
