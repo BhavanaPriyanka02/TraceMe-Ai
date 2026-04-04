@@ -25,6 +25,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+from fastapi.staticfiles import StaticFiles
 
 app.mount("/images", StaticFiles(directory="images"), name="images")
 
@@ -115,7 +116,7 @@ def add_item(
         file_path = f"images/{image.filename}"
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(image.file, buffer)
-        image_url = file_path
+        image_url = f"https://traceme-backend.onrender.com/images/{image.filename}"
 
     item = models.Item(
         user_id=user_id,
