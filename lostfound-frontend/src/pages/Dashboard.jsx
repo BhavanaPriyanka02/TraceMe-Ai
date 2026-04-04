@@ -18,7 +18,7 @@ function Dashboard() {
     try {
       const userId = localStorage.getItem("user_id");
       const res = await API.get(`/dashboard/${userId}`);
-
+      console.log(res.data.lost_items);
       setLostItems(res.data.lost_items || []);
       setFoundItems(res.data.found_items || []);
       setMatches(res.data.matches || []);
