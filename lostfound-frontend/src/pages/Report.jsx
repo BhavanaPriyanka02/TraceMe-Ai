@@ -13,6 +13,8 @@ function Report() {
   const handleSubmit = async () => {
   try {
     const userId = Number(localStorage.getItem("user_id"));
+    console.log("Selected image:", image);
+
 
     if (!type) {
       alert("Please select Lost or Found");
