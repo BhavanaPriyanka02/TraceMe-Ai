@@ -9,6 +9,8 @@ from passlib.context import CryptContext
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from jose import jwt
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 
 Base.metadata.create_all(bind=engine)
@@ -28,7 +30,11 @@ from fastapi.staticfiles import StaticFiles
 
 app.mount("/images", StaticFiles(directory="images"), name="images")
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
+@app.get("/{full_path:path}")
+def serve_frontend(full_path: str):
+    return FileResponse("static/index.html")
 
 class UserCreate(BaseModel):
     username: str
