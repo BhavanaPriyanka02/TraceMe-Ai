@@ -13,8 +13,6 @@ function Report() {
   const handleSubmit = async () => {
   try {
     const userId = Number(localStorage.getItem("user_id"));
-    console.log("Selected image:", image);
-
 
     if (!type) {
       alert("Please select Lost or Found");
@@ -26,25 +24,27 @@ function Report() {
       return;
     }
 
+    if (!image) {
+      alert("Please select an image");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("name", name);
     formData.append("description", description);
     formData.append("location", location);
-    formData.append("type", type); // lowercase
+    formData.append("type", type);
     formData.append("user_id", userId);
     formData.append("phone", phone);
+    formData.append("image", image);
 
-    if (image) {
-      formData.append("image", image);
-    }
-
-    await API.post("/items", formData); // ✅ no headers
+    await API.post("/api/items", formData);
 
     alert("Item reported successfully!");
     window.location.href = "/dashboard";
 
   } catch (err) {
-    console.log(err.response?.data); // 🔥 IMPORTANT
+    console.log(err.response?.data);
     alert("Error submitting item");
   }
 };
