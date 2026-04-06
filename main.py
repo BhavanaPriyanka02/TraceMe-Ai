@@ -56,7 +56,7 @@ def get_db():
         db.close()
 
 
-@app.post("/register")
+@app.post("/api/register")
 def register(user: UserCreate, db: Session = Depends(get_db)):
     hashed_password = pwd_context.hash(user.password)
 
@@ -77,7 +77,7 @@ SECRET_KEY = "your_secret_key"
 ALGORITHM = "HS256"
 
 
-@app.post("/login")
+@app.post("/api/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
 
     db_user = db.query(models.User).filter(
@@ -99,7 +99,7 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
 
 
 
-@app.post("/items")
+@app.post("/api/items")
 def add_item(
     name: str = Form(...),
     description: str = Form(...),

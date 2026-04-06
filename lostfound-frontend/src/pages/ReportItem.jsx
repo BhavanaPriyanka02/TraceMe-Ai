@@ -48,7 +48,7 @@ if (image) {
   formData.append("image", image);
 }
 
-      const res = await API.post("/items", formData);
+      const res = await API.post("/api/items", formData);
 
       console.log("ITEM ADDED:", res.data);
 

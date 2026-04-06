@@ -22,7 +22,7 @@ function Login() {
   }
 
   try {
-    const res = await API.post("/login", {
+    const res = await API.post("/api/login", {
       email,
       password,
     });
@@ -49,9 +49,9 @@ function Login() {
   }
 
   try {
-    alert("Registering... please wait ⏳");
+    alert("Registering... please wait ");
 
-    await API.post("/register", {
+    await API.post("/api/register", {
       username,
       email,
       password,
@@ -59,7 +59,7 @@ function Login() {
 
     console.log("REGISTER SUCCESS");
 
-    const res = await API.post("/login", {
+    const res = await API.post("/api/login", {
       email,
       password,
     });
