@@ -11,6 +11,7 @@ from fastapi.staticfiles import StaticFiles
 from jose import jwt
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from fastapi import Request
 
 
 Base.metadata.create_all(bind=engine)
@@ -31,10 +32,10 @@ from fastapi.staticfiles import StaticFiles
 app.mount("/images", StaticFiles(directory="images"), name="images")
 
 app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
-
 @app.get("/{full_path:path}")
-def serve_frontend(full_path: str):
+def serve_frontend(full_path: str, request: Request):
+    if full_path.startswith("api"):
+        return {"error": "API route not found"}
     return FileResponse("static/index.html")
 
 class UserCreate(BaseModel):
