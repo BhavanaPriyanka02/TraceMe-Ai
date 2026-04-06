@@ -30,7 +30,8 @@ from fastapi.staticfiles import StaticFiles
 
 app.mount("/images", StaticFiles(directory="images"), name="images")
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 @app.get("/{full_path:path}")
 def serve_frontend(full_path: str):
