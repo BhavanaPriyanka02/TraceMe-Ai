@@ -11,6 +11,7 @@ function Report() {
   const [image, setImage] = useState(null);
 
   const handleSubmit = async () => {
+   console.log("SUBMIT CLICKED");
   try {
     const userId = Number(localStorage.getItem("user_id"));
 
@@ -104,7 +105,13 @@ function Report() {
             <input type="text" placeholder="Phone Number" onChange={(e) => setPhone(e.target.value)} />
             <input type="file" onChange={(e) => setImage(e.target.files[0])} />
 
-            <button className="btn" onClick={handleSubmit}>Submit</button>
+            <button
+  type="button"
+  className="btn"
+  onClick={handleSubmit}
+>
+  Submit
+</button>
           </div>
 
           <p className="back-btn" onClick={() => setType(null)}>⬅ Back</p>
