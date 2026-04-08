@@ -120,10 +120,18 @@ def add_item(
     image_url = None
 
     if image:
-        file_path = f"images/{image.filename}"
+        import uuid
+
+        if not os.path.exists("images"):
+            os.makedirs("images")
+
+        unique_name = f"{uuid.uuid4()}_{image.filename}"
+        file_path = os.path.join("images", unique_name)
+
         with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(image.file, buffer)
-        image_url = f"https://traceme-backend.onrender.com/images/{image.filename}"
+            buffer.write(image.file.read())
+
+        image_url = f"https://traceme-backend.onrender.com/images/{unique_name}"
 
     item = models.Item(
         user_id=user_id,
