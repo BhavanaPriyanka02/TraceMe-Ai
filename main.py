@@ -164,8 +164,11 @@ def add_item(
         text1 = (item.name + " " + item.description + " " + item.location).lower()
         text2 = (candidate.name + " " + candidate.description + " " + candidate.location).lower()
 
-        score = float(get_similarity(text1, text2))
-
+        try:
+            score = float(get_similarity(text1, text2))
+        except Exception as e:
+            print("SIMILARITY ERROR:", e)
+            continue
         if score >= 0.5:
             matches_list.append((candidate, score))
 
@@ -183,7 +186,11 @@ def add_item(
         else:
             level = "Weak Match"
 
-        explanation = generate_explanation(candidate)
+        try:
+            explanation = generate_explanation(candidate)
+        except Exception as e:
+            print("EXPLANATION ERROR:", e)
+            explanation = "Match found"
 
         if item.type == "LOST":
             lost_id = item.id
