@@ -44,9 +44,12 @@ function Report() {
     window.location.href = "/dashboard";
 
   } catch (err) {
-    console.log(err.response?.data);
-    alert("Error submitting item");
-  }
+  console.log("FULL ERROR:", err);
+  console.log("RESPONSE:", err.response);
+  console.log("DATA:", err.response?.data);
+
+  alert(JSON.stringify(err.response?.data || err.message));
+}
 };
 
   return (
