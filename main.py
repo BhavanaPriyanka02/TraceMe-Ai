@@ -34,10 +34,11 @@ app.mount("/images", StaticFiles(directory="images"), name="images")
 app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
 @app.get("/{full_path:path}")
 def serve_frontend(full_path: str, request: Request):
-    if full_path.startswith("api"):
-        return {"error": "API route not found"}
-    return FileResponse("static/index.html")
 
+    if request.url.path.startswith("/api"):
+        return {"detail": "Not Found"}
+    
+    return FileResponse("static/index.html")
 class UserCreate(BaseModel):
     username: str
     email: str
@@ -381,3 +382,4 @@ def mark_notification_read(id: int, db: Session = Depends(get_db)):
     db.commit()
 
     return {"message": "Notification marked as read"}
+ 
